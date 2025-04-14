@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">RepairBooking</string>
+    <string-array name="user_roles">
+        <item>Admin</item>
+        <item>Technician</item>
+        <item>Client</item>
+    </string-array>
+</resources>

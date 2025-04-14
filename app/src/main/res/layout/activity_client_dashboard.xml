@@ -1,0 +1,50 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Date Picker -->
+    <DatePicker
+        android:id="@+id/datePicker"
+        android:layout_width="match_parent"
+        android:layout_height="308dp"
+        android:calendarViewShown="false"
+        android:spinnersShown="true" />
+
+    <!-- Time Picker -->
+    <TimePicker
+        android:id="@+id/timePicker"
+        android:layout_width="match_parent"
+        android:layout_height="112dp"
+        android:layout_marginTop="16dp"
+        android:timePickerMode="spinner" />
+
+    <!-- Description -->
+    <EditText
+        android:id="@+id/issueDescription"
+        android:layout_width="match_parent"
+        android:layout_height="102dp"
+        android:layout_marginTop="16dp"
+        android:hint="Describe the issue"
+        android:inputType="textMultiLine"
+        android:minHeight="48dp" />
+
+    <!-- Attach Files Button -->
+
+    <!-- Submit Button -->
+    <Button
+        android:id="@+id/attachFilesButton"
+        android:layout_width="380dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Attach Files" />
+
+    <Button
+        android:id="@+id/scheduleAppointmentButton"
+        android:layout_width="375dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Schedule Appointment" />
+</LinearLayout>
