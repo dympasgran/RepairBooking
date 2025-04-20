@@ -34,7 +34,14 @@ public class TechnicianDashboardActivity extends AppCompatActivity {
         logoutButton = findViewById(R.id.logoutButton);
         db = FirebaseFirestore.getInstance();
 
-        adapter = new AppointmentAdapter(appointmentList, this::onAppointmentClick);
+        adapter = new AppointmentAdapter(appointmentList, this::onAppointmentClick);AppointmentAdapter adapter = new AppointmentAdapter(appointmentList, appointment -> {
+            Intent intent = new Intent(TechnicianDashboardActivity.this, TechnicianUpdateActivity.class);
+            intent.putExtra("appointmentId", appointment.getAppointmentId());
+            intent.putExtra("clientName", appointment.getFirstName() + appointment.getLastName());
+            intent.putExtra("description", appointment.getDescription());
+            intent.putExtra("status", appointment.getStatus());
+            startActivity(intent);
+        });
         recyclerView.setAdapter(adapter);
 
         logoutButton.setOnClickListener(v -> {

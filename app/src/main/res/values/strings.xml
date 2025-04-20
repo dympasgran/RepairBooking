@@ -5,4 +5,13 @@
         <item>Technician</item>
         <item>Client</item>
     </string-array>
+
+    <string-array name="repair_statuses">
+        <item>Pending</item>
+        <item>In Progress</item>
+        <item>Completed</item>
+        <item>Awaiting Parts</item>
+        <item>Cancelled</item>
+    </string-array>
+
 </resources>

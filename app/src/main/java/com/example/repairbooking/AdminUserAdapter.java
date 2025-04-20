@@ -4,15 +4,16 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.repairbooking.R;
-import com.example.repairbooking.User;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.List;
 
@@ -39,7 +40,40 @@ public class AdminUserAdapter extends RecyclerView.Adapter<AdminUserAdapter.View
         holder.nameTextView.setText(user.getFirstName() + " " + user.getLastName());
         holder.emailTextView.setText(user.getEmail());
         holder.telephoneTextView.setText("Phone: " + user.getTelephone());
+
+        holder.roleSpinner.setOnItemSelectedListener(null); // Clear listener before setting selection
         holder.roleSpinner.setSelection(getRoleIndex(user.getRole()));
+
+        // Disable spinner if user is an admin
+        if ("admin".equalsIgnoreCase(user.getRole())) {
+            holder.roleSpinner.setEnabled(false);
+        } else {
+            holder.roleSpinner.setEnabled(true);
+
+            holder.roleSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+                    String selectedRole = parent.getItemAtPosition(pos).toString();
+                    if (!selectedRole.equalsIgnoreCase(user.getRole())) {
+                        user.setRole(selectedRole);
+
+                        FirebaseFirestore.getInstance()
+                                .collection("users")
+                                .document(user.getUserId())
+                                .update("role", selectedRole)
+                                .addOnSuccessListener(aVoid ->
+                                        Toast.makeText(context, "Role updated for " + user.getEmail(), Toast.LENGTH_SHORT).show()
+                                )
+                                .addOnFailureListener(e ->
+                                        Toast.makeText(context, "Failed to update role: " + e.getMessage(), Toast.LENGTH_LONG).show()
+                                );
+                    }
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {}
+            });
+        }
     }
 
     @Override
